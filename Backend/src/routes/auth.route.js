@@ -17,7 +17,7 @@ authRouter.post("/signup" , authController.signup )
  * @description login user
  */
 
-// authRouter.post("/login" )
+authRouter.post("/login" , authController.login )
 
 
 module.exports = authRouter
