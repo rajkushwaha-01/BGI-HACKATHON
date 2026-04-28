@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema(
 
     farmerDetails: {
       farmName: String,
-      deliveryRadius: Number, // in km
+      deliveryRadius: Number, 
       earnings: {
         type: Number,
         default: 0,
