@@ -24,6 +24,11 @@ async function signup(req, res) {
     isActive,
   });
 
+  const token = jwt.sign({userID:user._id} , process.env.JWT_SECRET , {expiresIn:"7d"} )
+  
+  res.cookie("token"  , token)
+
+
   res.status(200).json({
     message:"User created successfully",
     user
