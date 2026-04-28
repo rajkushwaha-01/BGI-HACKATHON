@@ -35,38 +35,6 @@ const userSchema = new mongoose.Schema(
       default: true,
     },
 
-    farmerDetails: {
-      farmName: String,
-      deliveryRadius: Number, 
-      earnings: {
-        type: Number,
-        default: 0,
-      },
-    },
-
-    consumerDetails: {
-      cart: [
-        {
-          productId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product",
-          },
-          quantity: Number,
-        },
-      ],
-    },
-
-    deliveryDetails: {
-      vehicleType: String,
-      isAvailable: {
-        type: Boolean,
-        default: true,
-      },
-      currentOrderId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Order",
-      },
-    },
   },
   { timestamps: true }
 );
