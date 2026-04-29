@@ -1,7 +1,7 @@
 const userModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
-async function userIdentifier(req, res, next) {
+async function farmerIdentifier(req, res, next) {
   const token = req.cookies.token;
 
   if (!token) {
@@ -37,4 +37,4 @@ async function userIdentifier(req, res, next) {
   next();
 }
 
-module.exports = userIdentifier;
+module.exports = farmerIdentifier;
