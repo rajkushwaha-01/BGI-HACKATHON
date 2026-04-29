@@ -37,14 +37,26 @@ const productSchema = new mongoose.Schema(
     },
 
     location: {
-      lat: Number,
-      lng: Number,
+      type: {
+        type: String,
+        enum: ["Point"],
+        default: "Point",
+      },
+      coordinates: {
+        //lng , lat
+        type: [Number],
+        required: true,
+        validate: {
+          validator: (val) => val.length === 2,
+          message: "Coordinates must be [lng, lat]",
+        },
+      },
     },
 
     deliveryRadius: {
       type: Number,
       required: true,
-      default:50
+      default: 5000,
     },
 
     isAvailable: {
@@ -54,6 +66,8 @@ const productSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
+
+productSchema.index({ location: "2dsphere" });
 
 const productModel = mongoose.model("Product", productSchema);
 

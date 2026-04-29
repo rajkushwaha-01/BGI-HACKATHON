@@ -25,7 +25,7 @@ productRouter.get('/' , productController.getProducts)
  * @description login user can use this route
  */
 
-// productRouter.get('/products/nearby')
+productRouter.get('/nearby', productController.getNearbyProducts)
 
 
 module.exports = productRouter

@@ -20,8 +20,8 @@ async function addProduct(req, res) {
     images,
     farmerId: farmer._id,
     location: {
-      lat: farmer.location.lat,
-      lng: farmer.location.lng,
+      type: "Point",
+      coordinates: [farmer.location.lng, farmer.location.lat], // lng first!
     },
     deliveryRadius,
     isAvailable: true,
@@ -32,12 +32,47 @@ async function addProduct(req, res) {
   });
 }
 
-async function getProducts(req , res) {
-  const product = await productModel.find()
+async function getProducts(req, res) {
+  const product = await productModel.find();
   res.status(200).json({
-    message:"product fetch successfully",
-    product
-  })
+    message: "product fetch successfully",
+    product,
+  });
 }
 
-module.exports = { addProduct , getProducts };
+
+async function getNearbyProducts(req, res) {
+  const { lat, lng, radius = 5000 } = req.query; 
+
+  if (!lat || !lng) {
+    return res.status(400).json({
+      message: "Latitude and Longitude required",
+    });
+  }
+
+  try {
+    const products = await productModel.find({
+      location: {
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: [parseFloat(lng), parseFloat(lat)],
+          },
+          $maxDistance: parseInt(radius),
+        },
+      },
+      isAvailable: true,
+    });
+
+    res.status(200).json({
+      message: "Nearby products fetched",
+      products,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+}
+
+module.exports = { addProduct, getProducts ,getNearbyProducts};
