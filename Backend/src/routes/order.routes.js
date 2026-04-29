@@ -1,9 +1,21 @@
 const express = require("express");
-const router = express.Router();
+const orderRouter = express.Router();
+
 const orderController = require("../controllers/order.controller");
 const auth = require("../middleware/auth.middleware");
 
-router.post("/orders", auth, orderController.createOrder);
-router.get("/orders/:id", auth, orderController.getOrderById);
+/**
+ *@access private
+ *@route /orders
+ *@description create order
+ */
+orderRouter.post("/", auth, orderController.createOrder);
 
-module.exports = router;
+/**
+ *@access private
+ *@route /orders/:id
+ *@description get order information using order id
+ */
+orderRouter.get("/:id", auth, orderController.getOrderById);
+
+module.exports = orderRouter;

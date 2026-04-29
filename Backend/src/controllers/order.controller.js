@@ -51,3 +51,5 @@ async function getOrderById(req, res) {
 
   res.json(order);
 }
+
+module.exports = { createOrder, getOrderById };
