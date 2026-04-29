@@ -16,7 +16,7 @@ productRouter.post('/add' , farmerauthMiddeleware , productController.addProduct
  * @access public
  * @description show product on desboard
  */
-// productRouter.get('/')
+productRouter.get('/' , productController.getProducts)
 
 
 /**

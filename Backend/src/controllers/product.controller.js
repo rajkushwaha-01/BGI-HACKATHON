@@ -32,4 +32,12 @@ async function addProduct(req, res) {
   });
 }
 
-module.exports = { addProduct };
+async function getProducts(req , res) {
+  const product = await productModel.find()
+  res.status(200).json({
+    message:"product fetch successfully",
+    product
+  })
+}
+
+module.exports = { addProduct , getProducts };
