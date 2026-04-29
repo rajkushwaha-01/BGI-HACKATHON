@@ -1,9 +1,16 @@
 const productModel = require("../models/product.model");
 
+const ImageKit = require("imagekit");
+
 async function addProduct(req, res) {
-  const { name, category, price, quantity, unit, images, deliveryRadius } =
-    req.body;
+  const { name, category, price, quantity, unit, deliveryRadius } = req.body;
   const farmer = req.user;
+
+  if (!req.file) {
+    return res.status(400).json({
+      message: "Image is required",
+    });
+  }
 
   if (!farmer.location || !farmer.location.lat || !farmer.location.lng) {
     return res.status(400).json({
@@ -11,13 +18,25 @@ async function addProduct(req, res) {
     });
   }
 
+  const imagekit = new ImageKit({
+    publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+    privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
+  });
+
+  const result = await imagekit.upload({
+    file: req.file.buffer,
+    fileName: req.file.originalname,
+    folder: "/demo-single",
+  });
+
   const product = await productModel.create({
     name,
     category,
     price,
     quantity,
     unit,
-    images,
+    images: result.url,
     farmerId: farmer._id,
     location: {
       type: "Point",
@@ -40,9 +59,8 @@ async function getProducts(req, res) {
   });
 }
 
-
 async function getNearbyProducts(req, res) {
-  const { lat, lng, radius = 5000 } = req.query; 
+  const { lat, lng, radius = 5000 } = req.query;
 
   if (!lat || !lng) {
     return res.status(400).json({
@@ -75,4 +93,4 @@ async function getNearbyProducts(req, res) {
   }
 }
 
-module.exports = { addProduct, getProducts ,getNearbyProducts};
+module.exports = { addProduct, getProducts, getNearbyProducts };
