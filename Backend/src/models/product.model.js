@@ -44,6 +44,7 @@ const productSchema = new mongoose.Schema(
     deliveryRadius: {
       type: Number,
       required: true,
+      default:50
     },
 
     isAvailable: {

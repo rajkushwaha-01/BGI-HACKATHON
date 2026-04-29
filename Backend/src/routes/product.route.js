@@ -1,5 +1,6 @@
 const express = require('express')
 const productController = require('../controllers/product.controller')
+const farmerauthMiddeleware = require('../middleware/farmerauth.middleware')
 
 const productRouter = express.Router();
 
@@ -8,7 +9,7 @@ const productRouter = express.Router();
  * @access private
  * @description only farmer can add a product.
  */
-// productRouter.post('/add'  )
+productRouter.post('/add' , farmerauthMiddeleware , productController.addProduct  )
 
 /**
  * @route /products
