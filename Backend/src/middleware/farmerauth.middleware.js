@@ -27,7 +27,11 @@ async function userIdentifier(req, res, next) {
     })
   }
   console.log(user);
-  
+  if(user.role != 'farmer'){
+    return res.status(401).json({
+        message :"Unathorized"
+    })
+  }
   req.user = user;
 
   next();
