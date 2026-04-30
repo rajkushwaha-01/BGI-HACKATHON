@@ -18,8 +18,8 @@ async function signup(req, res) {
   const user = await userModel.create({
     name,
     phone,
-    password: hash,
-    role,
+    password: hash, 
+    role, 
     location,
     isActive,
   });
