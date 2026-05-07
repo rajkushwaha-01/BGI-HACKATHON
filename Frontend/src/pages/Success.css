@@ -1,0 +1,14 @@
+.success-container{
+  text-align:center;
+  margin-top:100px;
+}
+
+.home-btn{
+  margin-top:20px;
+  padding:10px 15px;
+  border:none;
+  background:green;
+  color:white;
+  border-radius:5px;
+  cursor:pointer;
+}
