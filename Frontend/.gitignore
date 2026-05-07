@@ -1,3 +1,13 @@
+# Dependencies
+node_modules/
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
 # Logs
 logs
 *.log
@@ -5,20 +15,49 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Build / Production
+dist/
+build/
+dist-ssr/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Coverage
+coverage/
+
+# Cache
+.cache/
+.parcel-cache/
+.vite/
+
+# Next.js
+.next/
+
+# MongoDB Local Data
+/data/db
+
+# Firebase
+.firebase/
+
+# Deployment
+.render
+
+# OS Files
 .DS_Store
+Thumbs.db
+
+# IDE / Editor
+.vscode/
+!.vscode/extensions.json
+.idea/
+
+# Temporary Files
+*.tmp
+*.temp
+*.sw?
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+
+# Local Config
+*.local
